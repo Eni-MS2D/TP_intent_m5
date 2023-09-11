@@ -43,17 +43,28 @@ class MainActivity : AppCompatActivity() {
                 // Handle other intents, such as being started from the home screen
             }
         }
+
     }
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     fun handleSendImage(intent: Intent) {
         val imageView = findViewById<ImageView>(R.id.id_img_modifiable)
-        val uri = intent?.getParcelableExtra<Uri>(Intent.EXTRA_STREAM)
+        val uri = intent?.getParcelableExtra<Uri>(Intent.EXTRA_STREAM) // version 11 Android
+
+        // val uri = intent?.getParcelableExtra(Intent.EXTRA_STREAM, Uri::class.java) ?: return // version actuelle
         imageView.setImageURI(uri)
     }
     fun  openURL(view: View){
         val url = "https://nickelodeon.fandom.com/wiki/SpongeBob_SquarePants_(character)"
         val  intent = Intent(Intent.ACTION_VIEW)
         intent.data = Uri.parse(url)
+        startActivity(intent)
+
+    }
+
+    fun openNextImg(view: View){
+        //val intent = Intent(this@MainActivity, SwipeActivity::class.java)
+        val intent= Intent(this,SwipeActivity::class.java)
+
         startActivity(intent)
 
     }
